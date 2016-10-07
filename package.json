@@ -1,12 +1,12 @@
 {
   "name": "redis-memoize-function",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "memoize function result in redis",
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test mocha --compilers js:babel-core/register --require babel-polyfill $(find ./src/ -name '*.spec.js')",
     "build": "NODE_ENV=production babel src -d dist",
-    "publish": "npm run build && git push && npm publish"
+    "publish-npm": "npm run build && git push && npm publish"
   },
   "repository": {
     "type": "git",

@@ -13,7 +13,7 @@ So I write a new memoizer using redis and TTL to ensure memory not leaking
 # How to use
 
 ```
-npm install redis-memoizer
+npm install redis-memoize-function
 ```
 
 You can memoize function by using this pattern
