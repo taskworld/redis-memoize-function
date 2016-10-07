@@ -29,6 +29,9 @@ assert(res1 === 555)
 ```
 
 Please beware that you cannot memoize
+
 1. Anonymous function (will throw)
 2. Functions with same name
+
+Memoize function will now become a promise-based function, because it's use redis
 
