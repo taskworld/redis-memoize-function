@@ -1,12 +1,34 @@
-# tw-lib-boilerplate
+# redis-memoizer
 
-Boiler plate for creating node.js backend library with babel
+function memoizer by using redis cache
 
-# Structure
+# Inspiration
 
-src ---> You write things here
+Lodash memoizing have problem about memory leak states here:
 
-dist ---> Compile to babel here
+http://stackoverflow.com/questions/38600119/is-the-default-lodash-memoize-function-a-danger-for-memory-leaks
 
-- Write test for each file using xxx.spec.js
-- Use mocha in chai for testing
+So I write a new memoizer using redis and TTL to ensure memory not leaking
+
+# How to use
+
+```
+npm install redis-memoizer
+```
+
+You can memoize function by using this pattern
+
+```
+function originalFunction () {
+   return 555
+} 
+memoizer.connectRedis('redis://127.0.0.1:6379')
+const memoizeFunc = memoizer.memoize(originalFunction)
+const res1 = await memoizeFunc()
+assert(res1 === 555)
+```
+
+Please beware that you cannot memoize
+1. Anonymous function (will throw)
+2. Functions with same name
+
