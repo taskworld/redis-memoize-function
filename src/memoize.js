@@ -21,6 +21,7 @@ function defaultCacheResolver () {
 }
 
 export function memoize (func, ttl, cacheKeyResolver) {
+  ttl = ttl || 5000
   if (!cacheKeyResolver) cacheKeyResolver = defaultCacheResolver
   if (!func.name || func.name.trim() === '') {
     throw new Error('Cannot memoize anonymous function')
@@ -29,10 +30,10 @@ export function memoize (func, ttl, cacheKeyResolver) {
     const funcId = getFunctionId(func.name, ttl)
     const cacheKey = funcId + cacheKeyResolver(arguments)
     const cacheResult = await RedisClient.cacheGet(cacheKey)
-    if (cacheResult) return cacheResult
+    if (cacheResult) return JSON.parse(cacheResult)
     let result = func.apply(null, arguments)
     if (result.then) result = await result
-    await RedisClient.cacheSet(cacheKey, result, 100)
+    await RedisClient.cacheSet(cacheKey, JSON.stringify(result), ttl)
     return result
   }
   return newFunc

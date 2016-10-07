@@ -7,16 +7,16 @@ describe('memoize', () => {
   it('should return be able to memoize normal function', async () => {
     const obj = {
       testFunc () {
-        return '5'
+        return 5
       } 
     }
     const spy = Sinon.spy(obj, 'testFunc')
     memoizer.connectRedis('redis://127.0.0.1:6379')
     const memoizeFunc = memoizer.memoize(obj.testFunc)
     const res1 = await memoizeFunc()
-    expect(res1).to.equal('5')
+    expect(res1).to.equal(5)
     const res2 = await memoizeFunc()
-    expect(res2).to.equal('5')
+    expect(res2).to.equal(5)
     expect(spy.callCount).to.equal(1)
   })
 
@@ -68,6 +68,29 @@ describe('memoize', () => {
     const res4 = await memoizeFunc(2, 3)
     expect(res4).to.equal('case3')
     expect(callCount).to.equal(3)
+  })
+
+  it('should return be able to memoize function that return object', async () => {
+    let callCount = 0
+    const returnObj = {
+      a: 1,
+      b: 2
+    }
+    const obj = {
+      testFuncPromise2 (a, b) {
+        return Promise.try(() => {
+          callCount++
+          return returnObj
+        })
+      } 
+    }
+    memoizer.connectRedis('redis://127.0.0.1:6379')
+    const memoizeFunc = memoizer.memoize(obj.testFuncPromise2)
+    const res1 = await memoizeFunc()
+    expect(res1).to.deep.equal(returnObj)
+    const res2 = await memoizeFunc()
+    expect(res2).to.deep.equal(returnObj)
+    expect(callCount).to.equal(1)
   })
 })
 
