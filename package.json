@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chrisza4/redis-memoizer.git"
+    "url": "git+https://github.com/taskworld/redis-memoize-function.git"
   },
   "devDependencies": {
     "babel-core": "^6.14.0",
