@@ -41,6 +41,7 @@ function defaultCacheResolver() {
 }
 
 function memoize(func, ttl, cacheKeyResolver) {
+  ttl = ttl || 5000;
   if (!cacheKeyResolver) cacheKeyResolver = defaultCacheResolver;
   if (!func.name || func.name.trim() === '') {
     throw new Error('Cannot memoize anonymous function');
@@ -69,7 +70,7 @@ function memoize(func, ttl, cacheKeyResolver) {
                 break;
               }
 
-              return _context.abrupt('return', cacheResult);
+              return _context.abrupt('return', JSON.parse(cacheResult));
 
             case 7:
               result = func.apply(null, _args);
@@ -87,7 +88,7 @@ function memoize(func, ttl, cacheKeyResolver) {
 
             case 12:
               _context.next = 14;
-              return _redisClient2.default.cacheSet(cacheKey, result, 100);
+              return _redisClient2.default.cacheSet(cacheKey, JSON.stringify(result), ttl);
 
             case 14:
               return _context.abrupt('return', result);

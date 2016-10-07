@@ -1,15 +1,16 @@
 {
-  "name": "redis-memoize",
-  "version": "1.0.2",
+  "name": "redis-memoizer",
+  "version": "1.0.0",
   "description": "memoize function result in redis",
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test mocha --compilers js:babel-core/register --require babel-polyfill $(find ./src/ -name '*.spec.js')",
-    "build": "NODE_ENV=production babel src -d dist"
+    "build": "NODE_ENV=production babel src -d dist",
+    "publish": "npm run build && git push && npm publish"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chrisza4/TimingJs.git"
+    "url": "git+https://github.com/chrisza4/redis-memoizer.git"
   },
   "devDependencies": {
     "babel-core": "^6.14.0",
