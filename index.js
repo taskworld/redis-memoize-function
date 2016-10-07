@@ -1,3 +1,1 @@
-require('babel-polyfill')
-
-module.exports = require('./dist/memoize')
+module.exports = require('./src/memoize')

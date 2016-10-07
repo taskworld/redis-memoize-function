@@ -1,5 +1,6 @@
-import P from 'bluebird'
-import RedisUnpromise from 'redis'
+'use strict'
+const P = require('bluebird')
+const RedisUnpromise = require('redis')
 
 const Redis = P.promisifyAll(RedisUnpromise)
 
@@ -26,4 +27,4 @@ internals.cacheDelete = (key) => {
   return _client.delAsync(key)
 }
 
-export default internals
+module.exports = internals
