@@ -1,5 +1,5 @@
 {
-  "name": "redis-memoize",
+  "name": "redis-memoize-function",
   "version": "1.0.0",
   "description": "memoize function result in redis",
   "main": "index.js",
