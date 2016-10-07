@@ -37,3 +37,7 @@ export function memoize (func, ttl, cacheKeyResolver) {
   }
   return newFunc
 }
+
+module.exports = {
+  connectRedis, getFunctionId, memoize
+}
